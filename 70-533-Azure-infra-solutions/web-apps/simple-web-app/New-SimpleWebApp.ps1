@@ -24,7 +24,7 @@ New-AzureRmAppServicePlan -ResourceGroupName $resourceGroupName  -Name $serviceP
 #Create web app
 New-AzureRmWebApp -ResourceGroupName $resourceGroupName  -Name $webAppName -Location $location -AppServicePlan $servicePlanName
 
-#Create 2 deployment slots
+#Create a deployment slot
 New-AzureRmWebAppSlot -ResourceGroupName $resourceGroupName -Name $webAppName  -Slot $slot1
 
 #Swap slots
