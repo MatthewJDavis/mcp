@@ -30,5 +30,8 @@ New-AzureRmWebAppSlot -ResourceGroupName $resourceGroupName -Name $webAppName  -
 #Swap slots
 #Swap-AzureRmWebAppSlot -SourceSlotName $slot1 -DestinationSlotName "Production" -ResourceGroupName $resourceGroupName -Name $webAppName
 
+#Turn on Server loggin which is off by default
+Set-AzureRmWebApp -ResourceGroupName $resourceGroupName -Name $webAppName -RequestTracingEnabled $true -HttpLoggingEnabled $true -DetailedErrorLoggingEnabled $true 
+
 
 # Remove-AzureRmResourceGroup -Name simple-web-app-RG -Force   
