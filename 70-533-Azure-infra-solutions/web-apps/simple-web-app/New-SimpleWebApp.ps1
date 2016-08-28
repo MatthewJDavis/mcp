@@ -1,7 +1,14 @@
 ﻿##Create a simple web app
+#Will create a one web app with a staging deployment slot
 
-$resourceGroupName = "one-web-app-RG"
+$resourceGroupName = "simple-web-app-RG"
 $location = "north europe"
+$servicePlanName = "Simple-Web-App"
+$tier = "Standard"
+$workerSize = "Small"
+$webAppName = "matt-test-web-app"
+$slot1 = "Staging"
+
 
 #Login to Azure account
 #Login-AzureRmAccount
@@ -11,10 +18,12 @@ $location = "north europe"
 New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Tags @{Project="Simple Web App";Course="70-533"}
 
 #Create App Service plan
-New-AzureRmAppServicePlan -ResourceGroupName "one-web-app-RG" -Name "Simple-Web-App" -Location $location -Tier Basic -NumberofWorkers 1 -WorkerSize "Small" 
+New-AzureRmAppServicePlan -ResourceGroupName $resourceGroupName  -Name $servicePlanName -Location $location -Tier $tier -NumberofWorkers 1 -WorkerSize $workerSize 
 
 #Create web app
-New-AzureRmWebApp -ResourceGroupName "one-web-app-RG" -Name "matt-test-web-app" -Location $location -AppServicePlan "Simple-Web-App"
+New-AzureRmWebApp -ResourceGroupName $resourceGroupName  -Name $webAppName -Location $location -AppServicePlan $servicePlanName
 
+#Create 2 deployment slots
+New-AzureRmWebAppSlot -ResourceGroupName $resourceGroupName -Name $webAppName  -Slot $slot1
 
-    
+# Remove-AzureRmResourceGroup -Name simple-web-app-RG -Force   
