@@ -7,7 +7,7 @@ $location = "north europe"
 $servicePlanName = "Simple-Web-App"
 $tier = "Standard"
 $workerSize = "Small"
-$webAppName = "matt-test-web-app"
+$webAppName = "simple-test-web-app"
 $slot1 = "Staging"
 
 
