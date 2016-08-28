@@ -66,3 +66,4 @@ C:\Users\Matt\OneDrive\git\mcp\70-533-Azure-infra-solutions\web-apps\simple-web-
 C:\Users\Matt\OneDrive\git\mcp\70-533-Azure-infra-solutions\web-apps\simple-web-app\simple-web-app\simple-web-app\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Matt\OneDrive\git\mcp\70-533-Azure-infra-solutions\web-apps\simple-web-app\simple-web-app\simple-web-app\obj\Debug\simple-web-app.dll
 C:\Users\Matt\OneDrive\git\mcp\70-533-Azure-infra-solutions\web-apps\simple-web-app\simple-web-app\simple-web-app\obj\Debug\simple-web-app.pdb
+C:\Users\Matt\OneDrive\git\mcp\70-533-Azure-infra-solutions\web-apps\simple-web-app\simple-web-app\simple-web-app\obj\Debug\simple-web-app.csprojResolveAssemblyReference.cache

@@ -189,6 +189,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\matt-test-web-app - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\matt-test-web-app-Staging - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\matt-test-web-app-Staging - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
