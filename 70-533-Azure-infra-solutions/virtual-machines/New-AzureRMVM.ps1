@@ -1,5 +1,5 @@
 ﻿#Azure Virtual Machines
-#
+#Creates and Azure 2016 SQL
 
 #Get VM Image offers
 $location = "northeurope"
@@ -12,17 +12,17 @@ Get-AzureRmVMImageSku -Location $location -PublisherName MicrosoftSQLServer -Off
 
    
 ## Global
-$ResourceGroupName = "ResourceGroup11"
-$Location = "WestEurope"
+$ResourceGroupName = "ps-vm-RG"
+$Location = "UKSouth"
     
 ## Storage
 $StorageName = "vmstorage2321"
-$StorageType = "Standard_GRS"
+$StorageType = "Standard_LRS"
     
 ## Network
 $InterfaceName = "az-sql-server-pip"
 $Subnet1Name = "Subnet1"
-$VNetName = "VNet09"
+$VNetName = "ps-vm-VNET"
 $VNetAddressPrefix = "10.0.0.0/16"
 $VNetSubnetAddressPrefix = "10.0.0.0/24"
     
@@ -33,7 +33,7 @@ $VMSize = "Standard_A2"
 $OSDiskName = $VMName + "OSDisk"
     
 # Resource Group
-New-AzureRmResourceGroup -Name $ResourceGroupName -Location $Location
+New-AzureRmResourceGroup -Name $ResourceGroupName -Location $Location -Tag @{project="PowerShell VM"}
     
 # Storage
 $StorageAccount = New-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageName -Type $StorageType -Location $Location
@@ -58,5 +58,9 @@ $VirtualMachine = Set-AzureRmVMOSDisk -VM $VirtualMachine -Name $OSDiskName -Vhd
 ## Create the VM in Azure
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $VirtualMachine
     
+#Add a data disk after creation
+#
+$vm = Get-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VMName
+Add-AzureRmVMDataDisk -VM $vm -Name datadisk1 -VhdUri "https://vmstorage2321.blob.core.windows.net/vhd/data-disk-1.vhd" -DiskSizeInGB 500 -Lun 0 -CreateOption Empty
 
 Remove-AzureRmResourceGroup -Name $ResourceGroupName -Force
