@@ -1,37 +1,45 @@
-﻿##Create a simple web app
-#Will create a one web app with a staging deployment slot
-#Creates a web job
+<#
+This will create in the Azure subscription: Resource group with 2 tags, app service plan and web app.
+Requires Azure PowerShell: https://azure.microsoft.com/en-gb/documentation/articles/powershell-install-configure/
 
-$resourceGroupName = "simple-web-app-RG"
-$location = "north europe"
-$servicePlanName = "Simple-Web-App"
-$tier = "Standard"
-$workerSize = "Small"
-$webAppName = "simple-test-web-app"
-$slot1 = "Staging"
+The web app name needs to be globally unique, if deployment of web app fails, try a different name or number at the end.
 
+13th Oct 2016
+Matthew Davis
+#>
 
-#Login to Azure account
-#Login-AzureRmAccount
-#Select-AzureRmSubscription -SubscriptionName 
-
-##Create the resource group
-New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Tags @{Project="Simple Web App";Course="70-533"}
-
-#Create App Service plan
-New-AzureRmAppServicePlan -ResourceGroupName $resourceGroupName  -Name $servicePlanName -Location $location -Tier $tier -NumberofWorkers 1 -WorkerSize $workerSize 
-
-#Create web app
-New-AzureRmWebApp -ResourceGroupName $resourceGroupName  -Name $webAppName -Location $location -AppServicePlan $servicePlanName
-
-#Create a deployment slot
-New-AzureRmWebAppSlot -ResourceGroupName $resourceGroupName -Name $webAppName  -Slot $slot1
-
-#Swap slots
-#Swap-AzureRmWebAppSlot -SourceSlotName $slot1 -DestinationSlotName "Production" -ResourceGroupName $resourceGroupName -Name $webAppName
-
-#Turn on Server loggin which is off by default
-Set-AzureRmWebApp -ResourceGroupName $resourceGroupName -Name $webAppName -RequestTracingEnabled $true -HttpLoggingEnabled $true -DetailedErrorLoggingEnabled $true 
+$resourceGroupName = 'simple-web-app-rg'
+$location = 'UK South'
+$project = 'Simple Web App'
+$createBy = 'Your Name'
+$appServicePlanName = 'simple-web-app-asp'
+$webAppName = 'simple-web-app-123'
+$tier = 'Free'
+$workers = 1
+$workerSize = 'Small'
 
 
-# Remove-AzureRmResourceGroup -Name simple-web-app-RG -Force   
+#region Check for Azure PowerShell
+try{	
+	Get-Module -ListAvailable Azure -ErrorAction Stop
+}catch
+{
+	$err = $Error[0]
+}#endregion
+
+
+#region authenticate to Azure
+Login-AzureRmAccount 
+#endregion 
+
+
+#region Create App Service Plan & Web App
+New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Tag @{Project= $project; 'Created By'= $createBy}
+
+New-AzureRmAppServicePlan -Name $appServicePlanName -Location $location -Tier $tier -NumberofWorkers $workers -WorkerSize $workerSize -ResourceGroupName $resourceGroupName
+
+New-AzureRmWebApp -ResourceGroupName $resourceGroupName -Name $webAppName -Location $location -AppServicePlan $appServicePlanName 
+#endregion
+
+#Uncomment the below to remove the resource group
+#Remove-AzureRmResourceGroup -Name simple-web-app-rg -Force
