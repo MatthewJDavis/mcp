@@ -33,7 +33,7 @@ Login-AzureRmAccount
 #endregion 
 
 
-#region Create App Service Plan & Web App
+#region Create Resource group, App Service Plan & Web App
 New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Tag @{Project= $project; 'Created By'= $createBy}
 
 New-AzureRmAppServicePlan -Name $appServicePlanName -Location $location -Tier $tier -NumberofWorkers $workers -WorkerSize $workerSize -ResourceGroupName $resourceGroupName
