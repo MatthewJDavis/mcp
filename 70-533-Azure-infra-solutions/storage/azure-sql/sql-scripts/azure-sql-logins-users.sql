@@ -10,11 +10,6 @@
 --Create a SQL self contain login for a database
 CREATE USER datareader WITH PASSWORD = '';
 
-CREATE USER datareader
-	FOR LOGIN datareader
-	WITH DEFAULT_SCHEMA = dbo;
-GO
-
 -- Add user to the database owner role
 EXEC sp_addrolemember N'db_datareader', N'datareader';
 GO
